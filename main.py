@@ -85,6 +85,10 @@ def button_press(button_name, rect):
                     calc.pop()
         elif button_name == "Pi":
             calc.append("π")
+        elif button_name == "(":
+            calc.append(button_name)
+        elif button_name == ")":
+            calc.append(button_name)
         start_cooldown(button_name)
 
 def to_float():
@@ -98,7 +102,18 @@ def to_float():
 
 def operate():
     global current_ans
+    parens = []
+    deepness = []
+
+    if calc.count("(") != calc.count(")") or calc.index(")") < calc.index("("):
+        while len(calc) != 1:
+            calc.pop()
+        calc[0] = "ParenError"
+
+
+
     i = 0
+
     while i < len(calc):
         if calc[i] == "π":
             calc[i] = math.pi
@@ -110,10 +125,32 @@ def operate():
 
     i = 0
 
-    if calc[0] == 999.0:
-        calc[0] = "TestError"
+    while i < len(calc):
+        if calc[i] == "(":
+            parens.append(0)
+        elif calc[i] == ")":
+            parens.append(1)
+        i += 1
 
+    i = 0
 
+    while i < len(parens):
+        if parens[i] == 0 and i != 0:
+            deepness.append(deepness[i - 1] + 1)
+        elif parens[i] == 0 and i == 0:
+            deepness.append(1)
+        elif parens[i] == 1:
+            deepness.append(deepness[i - 1] - 1)
+        print(deepness)
+        i += 1
+
+    i = 0
+
+    if len(deepness) >= 1:
+
+        deepness.index(max(deepness))
+
+    i = 0
 
     while i < len(calc):
         if calc[i] == "*" or calc[i] == "/":
