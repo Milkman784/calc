@@ -102,6 +102,10 @@ def operate():
     while i < len(calc):
         if calc[i] == "π":
             calc[i] = math.pi
+            if try_float(calc[i - 1]):
+                calc[i - 1] = operator.mul(calc[i - 1], calc[i])
+                calc.pop(i)
+                i -= 1
         i += 1
 
     i = 0
@@ -259,20 +263,20 @@ def draw_widgets():
     screen.blit(font1.render("6", False, (0, 0, 0)), (595, 265))
     button_press("6", six_rect)
 
-    three_rect = pygame.Rect(340, 340, 100, 100)
-    pygame.draw.rect(screen, (255, 255, 100), three_rect)
-    screen.blit(font1.render("3", False, (0, 0, 0)), (375, 375))
-    button_press("3", three_rect)
+    one_rect = pygame.Rect(340, 340, 100, 100)
+    pygame.draw.rect(screen, (255, 255, 100), one_rect)
+    screen.blit(font1.render("1", False, (0, 0, 0)), (375, 375))
+    button_press("1", one_rect)
 
     two_rect = pygame.Rect(450, 340, 100, 100)
     pygame.draw.rect(screen, (255, 255, 100), two_rect)
     screen.blit(font1.render("2", False, (0, 0, 0)), (485, 375))
     button_press("2", two_rect)
 
-    one_rect = pygame.Rect(560, 340, 100, 100)
-    pygame.draw.rect(screen, (255, 255, 100), one_rect)
-    screen.blit(font1.render("1", False, (0, 0, 0)), (595, 375))
-    button_press("1", one_rect)
+    three_rect = pygame.Rect(560, 340, 100, 100)
+    pygame.draw.rect(screen, (255, 255, 100), three_rect)
+    screen.blit(font1.render("3", False, (0, 0, 0)), (595, 375))
+    button_press("3", three_rect)
 
     dot_rect = pygame.Rect(340, 450, 100, 100)
     pygame.draw.rect(screen, (255, 255, 100), dot_rect)
